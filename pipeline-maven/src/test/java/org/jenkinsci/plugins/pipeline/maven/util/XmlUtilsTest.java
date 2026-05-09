@@ -401,11 +401,13 @@ public class XmlUtilsTest {
                 .parse(in)
                 .getDocumentElement();
         List<MavenArtifact> generatedArtifacts = XmlUtils.listGeneratedArtifacts(mavenSpyLogs, false);
+
         assertThat(generatedArtifacts.size()).isEqualTo(2); // a jar file and a pom file are generated
 
         for (MavenArtifact mavenArtifact : generatedArtifacts) {
             assertThat(mavenArtifact.getGroupId()).isEqualTo("com.example");
             assertThat(mavenArtifact.getArtifactId()).isEqualTo("my-jar");
+            assertThat(mavenArtifact.isDeployed()).isTrue();
             if ("pom".equals(mavenArtifact.getType())) {
                 assertThat(mavenArtifact.getExtension()).isEqualTo("pom");
                 assertThat(mavenArtifact.getClassifier()).isNullOrEmpty();
@@ -441,6 +443,7 @@ public class XmlUtilsTest {
         assertThat(generatedArtifacts.get(0).getType()).isEqualTo("pom");
         assertThat(generatedArtifacts.get(0).getVersion()).isEqualTo("1.0.2-20220904.210621-1");
         assertThat(generatedArtifacts.get(0).isSnapshot()).isTrue();
+        assertThat(generatedArtifacts.get(0).isDeployed()).isTrue();
 
         assertThat(generatedArtifacts.get(1).getGroupId()).isEqualTo("com.acme.maven.plugins");
         assertThat(generatedArtifacts.get(1).getArtifactId()).isEqualTo("postgresql-compare-maven-plugin");
@@ -450,6 +453,7 @@ public class XmlUtilsTest {
         assertThat(generatedArtifacts.get(1).getType()).isEqualTo("maven-plugin");
         assertThat(generatedArtifacts.get(1).getVersion()).isEqualTo("1.0.2-20220904.210621-1");
         assertThat(generatedArtifacts.get(1).isSnapshot()).isTrue();
+        assertThat(generatedArtifacts.get(1).isDeployed()).isTrue();
     }
 
     @Test
@@ -475,6 +479,7 @@ public class XmlUtilsTest {
         assertThat(generatedArtifacts.get(0).getType()).isEqualTo("pom");
         assertThat(generatedArtifacts.get(0).getVersion()).isEqualTo("1.0.2-20220904.210621-1");
         assertThat(generatedArtifacts.get(0).isSnapshot()).isTrue();
+        assertThat(generatedArtifacts.get(0).isDeployed()).isTrue();
 
         assertThat(generatedArtifacts.get(1).getGroupId()).isEqualTo("com.acme.maven.plugins");
         assertThat(generatedArtifacts.get(1).getArtifactId()).isEqualTo("postgresql-compare-maven-plugin");
@@ -484,6 +489,7 @@ public class XmlUtilsTest {
         assertThat(generatedArtifacts.get(1).getType()).isEqualTo("maven-plugin");
         assertThat(generatedArtifacts.get(1).getVersion()).isEqualTo("1.0.2-20220904.210621-1");
         assertThat(generatedArtifacts.get(1).isSnapshot()).isTrue();
+        assertThat(generatedArtifacts.get(1).isDeployed()).isTrue();
     }
 
     @Test
@@ -505,6 +511,7 @@ public class XmlUtilsTest {
             assertThat(mavenArtifact.getBaseVersion()).isEqualTo("0.5-SNAPSHOT");
             assertThat(mavenArtifact.getVersion()).isEqualTo("0.5-20180304.184830-1");
             assertThat(mavenArtifact.isSnapshot()).isTrue();
+            assertThat(mavenArtifact.isDeployed()).isTrue();
             if ("pom".equals(mavenArtifact.getType())) {
                 assertThat(mavenArtifact.getExtension()).isEqualTo("pom");
                 assertThat(mavenArtifact.getClassifier()).isNullOrEmpty();
@@ -539,6 +546,7 @@ public class XmlUtilsTest {
             assertThat(mavenArtifact.getBaseVersion()).isEqualTo("0.5-SNAPSHOT");
             assertThat(mavenArtifact.getVersion()).isEqualTo("0.5-20180410.070244-14");
             assertThat(mavenArtifact.isSnapshot()).isTrue();
+            assertThat(mavenArtifact.isDeployed()).isTrue();
             if ("pom".equals(mavenArtifact.getType())) {
                 assertThat(mavenArtifact.getExtension()).isEqualTo("pom");
                 assertThat(mavenArtifact.getClassifier()).isNullOrEmpty();
